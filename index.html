@@ -21,59 +21,86 @@
 
     <div id="app">
 
+        <!-- titolo -->
         <h1 class="text-center ">TO DO LIST</h1>
 
         <div class="row g-3 justify-content-center ">
 
+            <!-- contenitore input text -->
             <div class="col-auto">
 
-              <label for="inputText" class="visually-hidden">Password</label>
-              <input type="text" class="form-control" id="inputText" placeholder="Nuova Attività">
+              <label for="inputText" class="visually-hidden">Nuova Attività</label>
+
+              <!-- input text -->
+              <input 
+                type="text" 
+                class="form-control" 
+                id="inputText" 
+                placeholder="Nuova Attività"
+                v-model="newTask.text"
+                @keyUp.enter="addTask"
+              />
 
             </div>
 
             <div class="col-auto">
 
-              <button type="submit" class="btn btn-primary mb-3">Aggiungi Attività</button>
+                <!-- bottone -->
+              <button 
+              class="btn btn-primary mb-3"
+              @click="addTask"
+              >Aggiungi Attività</button>
 
             </div>
-
-            
 
         </div>
 
+        <!-- area contenitore delle task -->
         <div class="bg-gradient w-50 m-auto rounded-3 p-3">
 
-            <ul class="d-flex flex-column border">
+            <ul class="d-flex flex-column">
 
-                <li class="d-flex justify-content-between border-bottom ">
-
-                    <p class="text-capitalize ">
-                        ciao
+                <!-- list intem con ciclo for e condizionale  -->
+                <li 
+                class="d-flex justify-content-between border-bottom mt-3 "
+                v-if="tasks.length !== 0"
+                v-for="(element,index) in tasks"
+                :key="element"
+                >
+                    <!-- elemento della lista con evento al click che aggiunge line through -->
+                    <p 
+                    class="text-capitalize "
+                    @click="checkText(index)"
+                    :class="{'text-decoration-line-through': element.done }"
+                    >
+                        {{element.text}}
                     </p>
                     
                     <span>
-                        <i class="fa-solid fa-xmark"></i>
+                        <!-- croce con funzione di rimuore le riga dalla lista -->
+                        <i 
+                        class="fa-solid fa-xmark"
+                        @click="removeTask(index)"
+                        ></i>
+
                     </span>
 
+                </li>
+
+                <!-- list intem con condizionale se cancelli tutti i task -->
+                <li 
+                v-else
+                class="d-flex "
+                >
+                    <h2>Non ci sono tasks</h2>
                 </li>
 
             </ul>
 
         </div>
 
-
-
-
-
-
-
-
-
     </div>
 
-    
-    
     
     <!-- link bootstraps -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -84,3 +111,5 @@
     <script src="./main.js"></script>
 </body>
 </html>
+
+<!-- Terminato esercizio -->

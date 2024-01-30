@@ -28,11 +28,22 @@ const { createApp } = Vue
   createApp({
     data() {
       return {
-        newTask: '',
+        newTask: {
+            text: '',
+            done: false,
+        },
         tasks: [
             {
-            text: '',
-            done: '',
+            text: 'fare i compiti',
+            done: true,
+            },
+            {
+              text: 'fare la spesa',
+              done: false,
+            },
+            {
+              text: 'pulire casa',
+              done: true,
             },
         ]
       }
@@ -41,6 +52,38 @@ const { createApp } = Vue
 
     },
     methods: {
+      // aggiunge un nuovo elemento alla lista dei task
+      addTask(){
 
+        const task ={
+          ...this.newTask
+        }
+
+        // controlla che la parola inserita sia superiore alle 5 lettere
+        // inserisce la frase dentro all'array tasks
+        if(task.text.length > 5 ){
+
+          this.tasks.unshift(task)
+
+        }
+
+        // svuota il campo input dopo il push 
+        this.newTask.text =''
+
+      },
+      // rimuove la riga dall'array tasks
+      removeTask(index){
+
+        this.tasks.splice(index,1)
+
+      },
+      // funzione per trasformare l'informazione done nell'opposto
+      checkText(index){
+
+        this.tasks[index].done = !this.tasks[index].done
+
+      }
     },
   }).mount('#app')
+
+  // Terminato esercizio
